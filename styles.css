@@ -1,0 +1,431 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #182d29;
+  background: #f2f6f3;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 15% 8%, rgb(207 235 217 / 55%), transparent 34rem),
+    #f2f6f3;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page {
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+  padding: 4rem 0 2rem;
+}
+
+.calculator {
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid #e1eae4;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgb(25 61 43 / 9%);
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.eyebrow {
+  color: #397b55;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0.6rem;
+  font-size: clamp(2rem, 5vw, 2.7rem);
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+}
+
+.page-header p {
+  margin-bottom: 0;
+  color: #64746d;
+  line-height: 1.6;
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: 1.1rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.extras {
+  margin-top: 1.6rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+.extras-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.checkbox-option {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #d9e3dc;
+  border-radius: 10px;
+  background: #fbfdfb;
+  cursor: pointer;
+  font-weight: 550;
+}
+
+.checkbox-option input {
+  width: 18px;
+  min-height: 18px;
+  flex: 0 0 18px;
+  margin: 0;
+  accent-color: #246b42;
+}
+
+.floor-option {
+  min-width: 0;
+}
+
+.floor-field {
+  margin-top: 0.75rem;
+}
+
+.floor-field > input {
+  min-height: 44px;
+}
+
+.field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+
+label span,
+.field small {
+  color: #718079;
+  font-weight: 400;
+}
+
+input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #d9e3dc;
+  border-radius: 10px;
+  outline: none;
+  background: #fbfdfb;
+  color: #182d29;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+input::placeholder {
+  color: #a0ada6;
+}
+
+input:focus {
+  border-color: #378458;
+  box-shadow: 0 0 0 3px rgb(55 132 88 / 14%);
+}
+
+.input-with-unit {
+  position: relative;
+}
+
+.input-with-unit input {
+  padding-right: 3.5rem;
+}
+
+.input-with-unit > span {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  color: #718079;
+  font-size: 0.9rem;
+  transform: translateY(-50%);
+}
+
+.field small {
+  font-size: 0.78rem;
+}
+
+.calculate-button,
+.whatsapp-button {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 0;
+  border-radius: 11px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.calculate-button {
+  width: 100%;
+  margin-top: 1.6rem;
+  background: #246b42;
+  cursor: pointer;
+}
+
+.calculate-button:hover {
+  background: #1c5836;
+}
+
+.calculate-button:active,
+.whatsapp-button:active {
+  transform: translateY(1px);
+}
+
+.calculate-button:focus-visible,
+.whatsapp-button:focus-visible {
+  outline: 3px solid #78bd8e;
+  outline-offset: 3px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  align-items: start;
+  gap: 2rem;
+}
+
+.result {
+  position: sticky;
+  top: 1.5rem;
+  padding: 1.4rem;
+  border: 1px solid #e1eae4;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgb(25 61 43 / 7%);
+}
+
+.whatsapp-button.is-disabled,
+.whatsapp-button.is-disabled:hover {
+  background: #a9bdb1;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .result {
+    position: static;
+  }
+}
+
+.result-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.1rem;
+}
+
+.result-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e1f1e6;
+  color: #246b42;
+  font-weight: 800;
+}
+
+.result h2 {
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+}
+
+.result-heading p {
+  margin-bottom: 0;
+  color: #687970;
+  font-size: 0.85rem;
+}
+
+.price-breakdown {
+  margin: 0 0 1.2rem;
+  border-top: 1px solid #e1eae4;
+}
+
+.price-breakdown > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #e1eae4;
+}
+
+.price-breakdown dt {
+  color: #596a61;
+}
+
+.price-breakdown dd {
+  margin: 0;
+  font-weight: 650;
+  text-align: right;
+}
+
+.price-breakdown .total-row {
+  color: #1c5836;
+  font-size: 1.08rem;
+  font-weight: 750;
+}
+
+.total-row dt,
+.total-row dd {
+  font-weight: 750;
+}
+
+.whatsapp-button {
+  background: #16834a;
+}
+
+.whatsapp-button:hover {
+  background: #116b3c;
+}
+
+.whatsapp-button svg {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
+.form-error {
+  margin: 1rem 0 0;
+  color: #a53030;
+  font-size: 0.9rem;
+}
+
+.page-footer {
+  padding: 1.2rem 0;
+  color: #718079;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.page-footer p {
+  margin-bottom: 0.2rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 540px) {
+  .page {
+    width: min(100% - 1rem, 760px);
+    padding-top: 1rem;
+  }
+
+  .calculator {
+    padding: 1.35rem;
+    border-radius: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .extras-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-wide {
+    grid-column: auto;
+  }
+}
+
+.elevator-option {
+  min-height: 42px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.875rem;
+}
+
+.sent-dialog {
+  width: min(100% - 2rem, 420px);
+  padding: 1.8rem;
+  border: 1px solid #e1eae4;
+  border-radius: 16px;
+  color: #182d29;
+  text-align: center;
+  box-shadow: 0 24px 70px rgb(25 61 43 / 18%);
+}
+
+.sent-dialog::backdrop {
+  background: rgb(24 45 41 / 45%);
+}
+
+.sent-dialog .result-icon {
+  margin: 0 auto 1rem;
+}
+
+.sent-dialog h2 {
+  margin-bottom: 0.6rem;
+}
+
+.sent-dialog p {
+  color: #4d625d;
+}
+
+fieldset:disabled {
+  opacity: 0.6;
+}

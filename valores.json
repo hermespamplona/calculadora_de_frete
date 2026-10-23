@@ -1,0 +1,27 @@
+{
+  "valoresBaseComodos": {
+    "umComodo": 450,
+    "doisComodos": 700,
+    "tresComodos": 980,
+    "quatroComodos": 1300,
+    "cincoOuMaisComodos": 1650
+  },
+  "servicosExtras": {
+    "desmontagem": { "nome": "Desmontagem", "valor": 280 },
+    "embalagem": { "nome": "Embalagem", "valor": 320 },
+    "item_pesado": { "nome": "Item pesado", "valor": 400 },
+    "icamento": { "nome": "Içamento", "valor": 600 },
+    "guarda_moveis": { "nome": "Guarda-móveis", "valor": 500 }
+  },
+  "frete": {
+    "kmPorBloco": 5,
+    "valorBlocoMesmaCidade": 10,
+    "valorBlocoOutraCidade": 8
+  },
+  "descontos": {
+    "mesmaCidade": { "distanciaMinima": 30, "percentual": 0.05 },
+    "outraCidade": { "distanciaMinima": 50, "percentual": 0.10 }
+  },
+  "valorPorAndarSemElevador": 30,
+  "taxaFimDeSemana": 0.15
+}

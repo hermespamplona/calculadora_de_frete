@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Calcule o valor do frete da sua encomenda com a Pamplona Fretes.">
+    <title>Pamplona Fretes | Calculadora</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="dist/script.js"></script>
+  </head>
+  <body>
+    <main class="page">
+      <section class="calculator" aria-labelledby="page-title">
+        <header class="page-header">
+          <span class="eyebrow">Pamplona Fretes</span>
+          <h1 id="page-title">Calculadora de frete</h1>
+          <p>Preencha os dados da encomenda para descobrir o valor da entrega.</p>
+        </header>
+
+        <div class="layout">
+        <form id="freight-form" novalidate>
+          <fieldset>
+            <legend>Trajeto da encomenda</legend>
+            <div class="form-grid">
+              <div class="field">
+                <label for="origin-city">Cidade de origem</label>
+                <input id="origin-city" name="originCity" type="text" autocomplete="address-level2" placeholder="Ex.: Curitiba" required>
+              </div>
+              <div class="field">
+                <label for="destination-city">Cidade de destino</label>
+                <input id="destination-city" name="destinationCity" type="text" autocomplete="address-level2" placeholder="Ex.: São Paulo" required>
+              </div>
+              <div class="field">
+                <label for="origin-zip">CEP de origem</label>
+                <input id="origin-zip" name="originZip" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" pattern="[0-9]{5}-?[0-9]{3}" title="Digite um CEP com 8 números." required>
+              </div>
+              <div class="field">
+                <label for="destination-zip">CEP de destino</label>
+                <input id="destination-zip" name="destinationZip" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" pattern="[0-9]{5}-?[0-9]{3}" title="Digite um CEP com 8 números." required>
+              </div>
+              <div class="field field-wide">
+                <label for="distance">Distância sugerida <span>(em quilômetros)</span></label>
+                <div class="input-with-unit">
+                  <input id="distance" name="distance" type="number" inputmode="decimal" min="0" step="0.1" placeholder="Ex.: 12,5" required>
+                  <span aria-hidden="true">km</span>
+                </div>
+                <small>Informe a distância estimada entre a origem e o destino.</small>
+              </div>
+              <div class="field field-wide">
+                <label for="room-count">Quantidade de cômodos</label>
+                <input id="room-count" name="roomCount" type="number" inputmode="numeric" min="1" step="1" placeholder="Ex.: 3" required>
+                <small>O valor-base é calculado conforme a tabela de orçamento.</small>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="extras">
+            <legend>Serviços e informações extras</legend>
+            <div class="extras-grid">
+              <label class="checkbox-option" for="disassembly">
+                <input id="disassembly" name="desmontagem" type="checkbox">
+                <span><span data-valor="servicosExtras.desmontagem.nome">Desmontagem</span> — <span data-valor="servicosExtras.desmontagem.valor" data-formato="moeda">—</span></span>
+              </label>
+              <label class="checkbox-option" for="packing">
+                <input id="packing" name="embalagem" type="checkbox">
+                <span><span data-valor="servicosExtras.embalagem.nome">Embalagem</span> — <span data-valor="servicosExtras.embalagem.valor" data-formato="moeda">—</span></span>
+              </label>
+              <label class="checkbox-option" for="heavy-items">
+                <input id="heavy-items" name="item_pesado" type="checkbox">
+                <span><span data-valor="servicosExtras.item_pesado.nome">Item pesado</span> — <span data-valor="servicosExtras.item_pesado.valor" data-formato="moeda">—</span></span>
+              </label>
+              <label class="checkbox-option" for="hoisting">
+                <input id="hoisting" name="icamento" type="checkbox">
+                <span><span data-valor="servicosExtras.icamento.nome">Içamento</span> — <span data-valor="servicosExtras.icamento.valor" data-formato="moeda">—</span></span>
+              </label>
+              <label class="checkbox-option" for="storage">
+                <input id="storage" name="guarda_moveis" type="checkbox">
+                <span><span data-valor="servicosExtras.guarda_moveis.nome">Guarda-móveis</span> — <span data-valor="servicosExtras.guarda_moveis.valor" data-formato="moeda">—</span></span>
+              </label>
+              <label class="checkbox-option" for="weekend">
+                <input id="weekend" name="weekend" type="checkbox">
+                <span>Fim de semana</span>
+              </label>
+              <div class="floor-option">
+                <label class="checkbox-option" for="has-origin-floor">
+                  <input id="has-origin-floor" type="checkbox" aria-controls="origin-floor-field">
+                  <span>Informar andar de origem</span>
+                </label>
+                <div id="origin-floor-field" class="field floor-field" hidden>
+                  <label for="origin-floor">Andar de origem</label>
+                  <input id="origin-floor" name="originFloor" type="number" min="0" step="1" inputmode="numeric" placeholder="Ex.: 2" disabled>
+                  <label class="checkbox-option elevator-option" for="origin-elevator">
+                    <input id="origin-elevator" name="originElevator" type="checkbox" disabled>
+                    <span>Possui elevador</span>
+                  </label>
+                  <small>Sem elevador: <span data-valor="valorPorAndarSemElevador" data-formato="moeda">—</span> por andar.</small>
+                </div>
+              </div>
+              <div class="floor-option">
+                <label class="checkbox-option" for="has-destination-floor">
+                  <input id="has-destination-floor" type="checkbox" aria-controls="destination-floor-field">
+                  <span>Informar andar de destino</span>
+                </label>
+                <div id="destination-floor-field" class="field floor-field" hidden>
+                  <label for="destination-floor">Andar de destino</label>
+                  <input id="destination-floor" name="destinationFloor" type="number" min="0" step="1" inputmode="numeric" placeholder="Ex.: 4" disabled>
+                  <label class="checkbox-option elevator-option" for="destination-elevator">
+                    <input id="destination-elevator" name="destinationElevator" type="checkbox" disabled>
+                    <span>Possui elevador</span>
+                  </label>
+                  <small>Sem elevador: <span data-valor="valorPorAndarSemElevador" data-formato="moeda">—</span> por andar.</small>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+        </form>
+
+        <aside id="result" class="result" aria-labelledby="result-title" aria-live="polite">
+          <div class="result-heading">
+            <span class="result-icon" aria-hidden="true">✓</span>
+            <div>
+              <h2 id="result-title">Orçamento</h2>
+              <p id="route-summary">Preencha o formulário para ver os valores.</p>
+            </div>
+          </div>
+          <dl class="price-breakdown">
+            <div>
+              <dt>Valor-base do orçamento</dt>
+              <dd id="room-base-price">—</dd>
+            </div>
+            <div>
+              <dt>Valor do frete</dt>
+              <dd id="transport-price">—</dd>
+            </div>
+            <div id="services-row" hidden>
+              <dt>Serviços extras</dt>
+              <dd id="services-price"></dd>
+            </div>
+            <div id="selected-services-row" hidden>
+              <dt>Serviços selecionados</dt>
+              <dd id="selected-services"></dd>
+            </div>
+            <div>
+              <dt>Valor bruto total</dt>
+              <dd id="gross-price">—</dd>
+            </div>
+            <div id="discount-row" hidden>
+              <dt id="discount-label">Desconto</dt>
+              <dd id="discount-amount"></dd>
+            </div>
+            <div>
+              <dt>Subtotal</dt>
+              <dd id="subtotal-price">—</dd>
+            </div>
+            <div id="floor-fee-row" hidden>
+              <dt>Taxa de andar sem elevador</dt>
+              <dd id="floor-fee"></dd>
+            </div>
+            <div id="second-subtotal-row" hidden>
+              <dt>Subtotal com taxa de andar</dt>
+              <dd id="second-subtotal-price"></dd>
+            </div>
+            <div id="weekend-fee-row" hidden>
+              <dt>Taxa de fim de semana (<span data-valor="taxaFimDeSemana" data-formato="percentual">—</span>)</dt>
+              <dd id="weekend-fee"></dd>
+            </div>
+            <div class="total-row">
+              <dt>Total do frete</dt>
+              <dd id="final-price">—</dd>
+            </div>
+          </dl>
+          <a id="whatsapp-link" class="whatsapp-button" href="#" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+              <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4ZM12.1 21.7a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.9 1 1-3.8-.3-.4a9.8 9.8 0 1 1 8.6 4.8Zm5.4-7.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.5-.4Z"/>
+            </svg>
+            Enviar pelo WhatsApp
+          </a>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+        </aside>
+        </div>
+      </section>
+      <dialog id="sent-dialog" class="sent-dialog" aria-labelledby="sent-dialog-title">
+        <form method="dialog">
+          <span class="result-icon" aria-hidden="true">✓</span>
+          <h2 id="sent-dialog-title">Cálculo realizado</h2>
+          <p>Orçamento nº <strong id="sent-dialog-number"></strong> encaminhado para o WhatsApp.</p>
+          <p>Ao fechar este aviso, você pode editar os dados e enviar um novo orçamento.</p>
+          <button class="calculate-button" type="submit" autofocus>Fechar</button>
+        </form>
+      </dialog>
+      <footer class="page-footer">
+        <p>Quando origem e destino são na mesma cidade: frete de <span data-valor="frete.valorBlocoMesmaCidade" data-formato="moeda">—</span> a cada <span data-valor="frete.kmPorBloco" data-formato="numero">—</span> km e desconto de <span data-valor="descontos.mesmaCidade.percentual" data-formato="percentual">—</span> para distâncias a partir de <span data-valor="descontos.mesmaCidade.distanciaMinima" data-formato="numero">—</span> km.</p>
+        <p>Quando origem e destino são em cidades diferentes: frete de <span data-valor="frete.valorBlocoOutraCidade" data-formato="moeda">—</span> a cada <span data-valor="frete.kmPorBloco" data-formato="numero">—</span> km e desconto de <span data-valor="descontos.outraCidade.percentual" data-formato="percentual">—</span> para distâncias a partir de <span data-valor="descontos.outraCidade.distanciaMinima" data-formato="numero">—</span> km.</p>
+        <p>O desconto é aplicado sobre o valor bruto.</p>
+        <p>Andares sem elevador: <span data-valor="valorPorAndarSemElevador" data-formato="moeda">—</span> por andar (origem e destino), somados após o subtotal, sem desconto.</p>
+        <p>Se a entrega for no fim de semana, acrescenta-se <span data-valor="taxaFimDeSemana" data-formato="percentual">—</span> sobre o subtotal mais a taxa de andar.</p>
+      </footer>
+    </main>
+  </body>
+</html>

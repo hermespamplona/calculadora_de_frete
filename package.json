@@ -1,0 +1,14 @@
+{
+  "name": "calculadora_de_frete",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Calculadora de frete da Pamplona Fretes",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "tsc && node servidor.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
